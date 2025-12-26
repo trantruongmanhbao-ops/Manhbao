@@ -1,0 +1,133 @@
+-- GUIJUMP DELTA X by manhbao
+-- Local Random Key 72h + Link4m + Avatar + Hold Jump = Fly
+
+local Players = game:GetService("Players")
+local UIS = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local HttpService = game:GetService("HttpService")
+
+local player = Players.LocalPlayer
+
+-- ===== CONFIG =====
+local GETKEY_LINK = "https://link4m.com/jKWRlj4"
+local AVATAR_ID = "96045391302700"
+local KEY_HOURS = 72
+-- ==================
+
+-- ===== LOCAL KEY SYSTEM =====
+getgenv().GUIJUMP_DATA = getgenv().GUIJUMP_DATA or {}
+
+local function genKey()
+	return "GUIJUMP-" .. string.upper(string.sub(HttpService:GenerateGUID(false),1,20))
+end
+
+if not getgenv().GUIJUMP_DATA.key or os.time() > (getgenv().GUIJUMP_DATA.expire or 0) then
+	getgenv().GUIJUMP_DATA.key = genKey()
+	getgenv().GUIJUMP_DATA.expire = os.time() + KEY_HOURS * 3600
+end
+
+local function hasKey()
+	return getgenv().GUIJUMP_DATA.ok == true
+end
+
+-- ===== KEY GUI =====
+if not hasKey() then
+	local gui = Instance.new("ScreenGui", player.PlayerGui)
+
+	local f = Instance.new("Frame", gui)
+	f.Size = UDim2.new(0,360,0,260)
+	f.Position = UDim2.new(0.5,-180,0.5,-130)
+	f.BackgroundColor3 = Color3.fromRGB(25,25,25)
+	Instance.new("UICorner", f).CornerRadius = UDim.new(0,16)
+
+	local av = Instance.new("ImageLabel", f)
+	av.Size = UDim2.new(0,70,0,70)
+	av.Position = UDim2.new(0.05,0,0.08,0)
+	av.BackgroundTransparency = 1
+	av.Image = "rbxassetid://" .. AVATAR_ID
+	Instance.new("UICorner", av).CornerRadius = UDim.new(1,0)
+
+	local t = Instance.new("TextLabel", f)
+	t.Text = "GUIJUMP by manhbao"
+	t.Size = UDim2.new(0.65,0,0,40)
+	t.Position = UDim2.new(0.3,0,0.12,0)
+	t.BackgroundTransparency = 1
+	t.TextColor3 = Color3.fromRGB(0,255,255)
+	t.Font = Enum.Font.GothamBold
+	t.TextScaled = true
+
+	local box = Instance.new("TextBox", f)
+	box.Size = UDim2.new(0.9,0,0,40)
+	box.Position = UDim2.new(0.05,0,0.45,0)
+	box.PlaceholderText = "Dán key vào đây"
+	box.TextScaled = true
+
+	local g = Instance.new("TextButton", f)
+	g.Size = UDim2.new(0.4,0,0,36)
+	g.Position = UDim2.new(0.05,0,0.7,0)
+	g.Text = "GET KEY"
+
+	local c = Instance.new("TextButton", f)
+	c.Size = UDim2.new(0.4,0,0,36)
+	c.Position = UDim2.new(0.55,0,0.7,0)
+	c.Text = "CHECK KEY"
+
+	g.MouseButton1Click:Connect(function()
+		box.Text = GETKEY_LINK
+	end)
+
+	c.MouseButton1Click:Connect(function()
+		if box.Text == getgenv().GUIJUMP_DATA.key then
+			getgenv().GUIJUMP_DATA.ok = true
+			gui:Destroy()
+		else
+			box.Text = "KEY SAI"
+		end
+	end)
+end
+
+repeat task.wait() until hasKey()
+
+-- ===== TIME LEFT GUI =====
+local gui = Instance.new("ScreenGui", player.PlayerGui)
+local lbl = Instance.new("TextLabel", gui)
+
+lbl.Size = UDim2.new(0,260,0,35)
+lbl.Position = UDim2.new(0,10,0,10)
+lbl.BackgroundColor3 = Color3.fromRGB(20,20,20)
+lbl.TextColor3 = Color3.fromRGB(0,255,255)
+lbl.Font = Enum.Font.GothamBold
+lbl.TextScaled = true
+Instance.new("UICorner", lbl).CornerRadius = UDim.new(0,12)
+
+task.spawn(function()
+	while true do
+		local t = getgenv().GUIJUMP_DATA.expire - os.time()
+		if t <= 0 then
+			player:Kick("Key hết hạn")
+			break
+		end
+		lbl.Text = "KEY CÒN: " .. math.floor(t/3600) .. "h"
+		task.wait(1)
+	end
+end)
+
+-- ===== HOLD JUMP = FLY =====
+local char = player.Character or player.CharacterAdded:Wait()
+local fly = false
+
+UIS.JumpRequest:Connect(function()
+	fly = true
+end)
+
+UIS.InputEnded:Connect(function(i)
+	if i.KeyCode == Enum.KeyCode.Space then
+		fly = false
+	end
+end)
+
+RunService.Heartbeat:Connect(function()
+	if fly and char and char:FindFirstChild("HumanoidRootPart") then
+		char:TranslateBy(Vector3.new(0,0.8,0))
+	end
+end)
