@@ -9,7 +9,7 @@ local player = Players.LocalPlayer
 
 -- CONFIG
 local FIXED_KEY = "MANHBAO-KEY"
-local GETKEY_LINK = "https://link4m.com/CadYuDL"
+local GETKEY_LINK = "https://link4m.com/6yGePO7"
 local LOGO_ID = "96045391302700"
 
 -- ================= KEY GUI =================
