@@ -5,7 +5,6 @@ local Players = game:GetService("Players")
 local UIS = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
-
 local player = Players.LocalPlayer
 
 -- CONFIG
@@ -29,14 +28,16 @@ kf.Active = true
 kf.Draggable = true
 Instance.new("UICorner", kf).CornerRadius = UDim.new(0,14)
 
--- Hình nền menu get key
+-- Hình nền menu GET KEY
 local bg = Instance.new("ImageLabel", kf)
 bg.Size = UDim2.new(1,0,1,0)
 bg.Position = UDim2.new(0,0,0,0)
 bg.Image = "rbxassetid://"..BG_GETKEY
 bg.BackgroundTransparency = 0
 bg.ZIndex = 0
+bg.ScaleType = Enum.ScaleType.Stretch
 
+-- GUI Title
 local kt = Instance.new("TextLabel", kf)
 kt.Size = UDim2.new(1,0,0,40)
 kt.Position = UDim2.new(0,0,0.05,0)
@@ -47,6 +48,7 @@ kt.TextColor3 = Color3.fromRGB(0,255,255)
 kt.BackgroundTransparency = 1
 kt.ZIndex = 1
 
+-- Key Box
 local box = Instance.new("TextBox", kf)
 box.Size = UDim2.new(0.9,0,0,40)
 box.Position = UDim2.new(0.05,0,0.4,0)
@@ -54,6 +56,7 @@ box.PlaceholderText = "Nhập key"
 box.TextScaled = true
 box.ZIndex = 1
 
+-- GET & CHECK BUTTON
 local get = Instance.new("TextButton", kf)
 get.Size = UDim2.new(0.4,0,0,35)
 get.Position = UDim2.new(0.05,0,0.68,0)
@@ -78,7 +81,6 @@ local function showCopied(parent)
     label.BackgroundTransparency = 0.5
     label.BackgroundColor3 = Color3.fromRGB(0,0,0)
     label.ZIndex = 2
-
     local tween = TweenService:Create(label, TweenInfo.new(1.2), {BackgroundTransparency = 1, TextTransparency = 1})
     tween:Play()
     tween.Completed:Connect(function() label:Destroy() end)
@@ -86,19 +88,8 @@ end
 
 get.MouseButton1Click:Connect(function()
     box.Text = GETKEY_LINK
-    if setclipboard then
-        setclipboard(GETKEY_LINK)
-    end
+    if setclipboard then setclipboard(GETKEY_LINK) end
     showCopied(kf)
-end)
-
-check.MouseButton1Click:Connect(function()
-    if box.Text == FIXED_KEY then
-        keyGui:Destroy()
-        loadMainGUI() -- mở menu chính khi nhập key đúng
-    else
-        box.Text = "KEY SAI"
-    end
 end)
 
 -- ================= MAIN GUI =================
@@ -107,7 +98,7 @@ function loadMainGUI()
     gui.ResetOnSpawn = false
     gui.Parent = player.PlayerGui
 
-    -- LOGO NHỎ KÉO ĐƯỢC
+    -- Logo nhỏ kéo được
     local logo = Instance.new("ImageButton", gui)
     logo.Size = UDim2.new(0,50,0,50)
     logo.Position = UDim2.new(0,10,0.35,0)
@@ -117,7 +108,7 @@ function loadMainGUI()
     logo.Draggable = true
     Instance.new("UICorner", logo).CornerRadius = UDim.new(1,0)
 
-    -- MENU FRAME
+    -- Menu chính
     local frame = Instance.new("Frame", gui)
     frame.Size = UDim2.new(0,260,0,300)
     frame.Position = UDim2.new(0.3,0,0.3,0)
@@ -128,13 +119,14 @@ function loadMainGUI()
     Instance.new("UICorner", frame).CornerRadius = UDim.new(0,14)
     frame.Visible = true
 
-    -- Background menu
+    -- Hình nền menu chính
     local menuBG = Instance.new("ImageLabel", frame)
     menuBG.Size = UDim2.new(1,0,1,0)
     menuBG.Position = UDim2.new(0,0,0,0)
     menuBG.Image = "rbxassetid://"..BG_MENU
-    menuBG.BackgroundTransparency = 0.2
+    menuBG.BackgroundTransparency = 0
     menuBG.ZIndex = 0
+    menuBG.ScaleType = Enum.ScaleType.Stretch
 
     -- GUI Name
     local title = Instance.new("TextLabel", frame)
@@ -147,12 +139,12 @@ function loadMainGUI()
     title.BackgroundTransparency = 1
     title.ZIndex = 1
 
-    -- FLY CONFIG
+    -- Fly config
     local fly = false
     local speed = 1
-    local keys = {W=false, A=false, S=false, D=false}
+    local keys = {W=false,A=false,S=false,D=false}
 
-    -- TỐC ĐỘ HIỂN THỊ
+    -- Hiển thị tốc độ
     local speedLabel = Instance.new("TextLabel", frame)
     speedLabel.Size = UDim2.new(0.85,0,0,30)
     speedLabel.Position = UDim2.new(0.075,0,0.15,0)
@@ -163,7 +155,7 @@ function loadMainGUI()
     speedLabel.BackgroundTransparency = 1
     speedLabel.ZIndex = 1
 
-    -- FLY BUTTON
+    -- Fly Button
     local flyBtn = Instance.new("TextButton", frame)
     flyBtn.Size = UDim2.new(0.85,0,0,40)
     flyBtn.Position = UDim2.new(0.075,0,0.25,0)
@@ -174,14 +166,14 @@ function loadMainGUI()
         flyBtn.Text = fly and "FLY : ON" or "FLY : OFF"
     end)
 
-    -- SPEED + / - BUTTONS
+    -- + / - Speed
     local plusBtn = Instance.new("TextButton", frame)
     plusBtn.Size = UDim2.new(0.4,0,0,35)
     plusBtn.Position = UDim2.new(0.05,0,0.6,0)
     plusBtn.Text = "+ SPEED"
     plusBtn.ZIndex = 1
     plusBtn.MouseButton1Click:Connect(function()
-        speed = math.min(speed + 0.5, 5)
+        speed = math.min(speed+0.5,5)
         speedLabel.Text = "Speed: "..speed
     end)
 
@@ -191,48 +183,39 @@ function loadMainGUI()
     minusBtn.Text = "- SPEED"
     minusBtn.ZIndex = 1
     minusBtn.MouseButton1Click:Connect(function()
-        speed = math.max(speed - 0.5, 0.5)
+        speed = math.max(speed-0.5,0.5)
         speedLabel.Text = "Speed: "..speed
     end)
 
-    -- MỞ/ĐÓNG MENU KHI CLICK LOGO
+    -- Mở/đóng menu
     logo.MouseButton1Click:Connect(function()
         frame.Visible = not frame.Visible
     end)
 
-    -- KEY INPUT
+    -- Key input
     UIS.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.Keyboard then
             local key = input.KeyCode.Name
-            if keys[key] ~= nil then
-                keys[key] = true
-            end
+            if keys[key] ~= nil then keys[key] = true end
         end
     end)
-
     UIS.InputEnded:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.Keyboard then
             local key = input.KeyCode.Name
-            if keys[key] ~= nil then
-                keys[key] = false
-            end
+            if keys[key] ~= nil then keys[key] = false end
         end
     end)
 
-    -- FLY LOOP + NOCLIP
+    -- Fly loop + noclip
     RunService.Heartbeat:Connect(function()
         if not fly then return end
         local char = player.Character
         local hrp = char and char:FindFirstChild("HumanoidRootPart")
         local hum = char and char:FindFirstChild("Humanoid")
         if hrp and hum then
-            -- Noclip
             for _, part in pairs(char:GetDescendants()) do
-                if part:IsA("BasePart") then
-                    part.CanCollide = false
-                end
+                if part:IsA("BasePart") then part.CanCollide=false end
             end
-            -- Fly direction theo W/A/S/D
             local dir = Vector3.new()
             if keys.W then dir = dir + workspace.CurrentCamera.CFrame.LookVector end
             if keys.S then dir = dir - workspace.CurrentCamera.CFrame.LookVector end
@@ -246,5 +229,14 @@ function loadMainGUI()
         end
     end)
 end
+
+check.MouseButton1Click:Connect(function()
+    if box.Text == FIXED_KEY then
+        keyGui:Destroy()
+        loadMainGUI()
+    else
+        box.Text = "KEY SAI"
+    end
+end)
 
 print("GUIFLY DELTA MOBILE LOADED")
