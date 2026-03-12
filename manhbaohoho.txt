@@ -5,18 +5,18 @@ CUSTOM_UI_MODE_DATA = {
     Logo = "rbxassetid://125181362377056",
     Background = "rbxassetid://125181362377056",
     YouTube = "TrươngMạnhBảoTrần",
-    Discord = "tts9PrnRks",
+    Discord = "https://discord.gg/KFS",
     WelcomeMessage = {
         "BAO HUB",
         "BY TrươngMạnhBảoTrần"
     },
     TrailIcon = "💙",
-    ToggleIcon = "rbxassetid://86047347388765",
-    CommunityIcon = "rbxassetid://86047347388765",
+    ToggleIcon = "rbxassetid://125181362377056",
+    CommunityIcon = "rbxassetid://125181362377056",
     Contributers = {
         "Manh Bao"
     },
-    IntroText = "Preparing your HUB for an amazing experience.",
+    IntroText = "SCRIPT MANHBAO HUB BY TrươngMạnhBảoTrần.",
     TutorialLink = "https://www.youtube.com/@Tr%C6%B0%C6%A1ngM%E1%BA%A1nhB%E1%BA%A3oTr%E1%BA%A7n",
 }
 
