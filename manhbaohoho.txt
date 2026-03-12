@@ -4,21 +4,21 @@ CUSTOM_UI_MODE_DATA = {
     Theme = "Blue",
     Logo = "rbxassetid://125181362377056",
     Background = "rbxassetid://125181362377056",
-    YouTube = "TrươngMạnhBảoTrần",
-    Discord = "https://discord.gg/KFS",
+    YouTube = "Dat-THG",
+    Discord = "KFS",
     WelcomeMessage = {
-        "BAO HUB",
-        "BY TrươngMạnhBảoTrần"
+        "THG HUB",
+        "BY DatTHG"
     },
-    TrailIcon = "💙",
+    TrailIcon = "🔥",
     ToggleIcon = "rbxassetid://125181362377056",
     CommunityIcon = "rbxassetid://125181362377056",
     Contributers = {
-        "Manh Bao"
+        "BAO MANH"
     },
-    IntroText = "SCRIPT MANHBAO HUB BY TrươngMạnhBảoTrần.",
+    IntroText = "Preparing your HUB for an amazing experience.",
     GetKeyLink = "https://hehehub-acsu123.pythonanywhere.com/api/getkeyv4?hwid=BG7w89RuTxxtugtJH04EijntTZ2m72Sf-datThgStep1",
-    TutorialLink = "https://www.youtube.com/@Tr%C6%B0%C6%A1ngM%E1%BA%A1nhB%E1%BA%A3oTr%E1%BA%A7n",
+    TutorialLink = "https://discord.gg/KFS",
 }
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()
