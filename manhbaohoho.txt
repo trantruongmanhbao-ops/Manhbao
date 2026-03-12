@@ -1,0 +1,23 @@
+IS_CUSTOM_UI_MODE = true
+CUSTOM_UI_MODE_DATA = {
+    Name = "BAO",
+    Theme = "Blue",
+    Logo = "rbxassetid://125181362377056",
+    Background = "rbxassetid://125181362377056",
+    YouTube = "TrươngMạnhBảoTrần",
+    Discord = "tts9PrnRks",
+    WelcomeMessage = {
+        "BAO HUB",
+        "BY TrươngMạnhBảoTrần"
+    },
+    TrailIcon = "💙",
+    ToggleIcon = "rbxassetid://86047347388765",
+    CommunityIcon = "rbxassetid://86047347388765",
+    Contributers = {
+        "Manh Bao"
+    },
+    IntroText = "Preparing your HUB for an amazing experience.",
+    TutorialLink = "https://www.youtube.com/@Tr%C6%B0%C6%A1ngM%E1%BA%A1nhB%E1%BA%A3oTr%E1%BA%A7n",
+}
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/acsu123/HOHO_H/main/Loading_UI"))()
