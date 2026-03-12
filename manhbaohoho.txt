@@ -17,6 +17,7 @@ CUSTOM_UI_MODE_DATA = {
         "Manh Bao"
     },
     IntroText = "SCRIPT MANHBAO HUB BY TrươngMạnhBảoTrần.",
+    GetKeyLink = "https://hehehub-acsu123.pythonanywhere.com/api/getkeyv4?hwid=BG7w89RuTxxtugtJH04EijntTZ2m72Sf-datThgStep1",
     TutorialLink = "https://www.youtube.com/@Tr%C6%B0%C6%A1ngM%E1%BA%A1nhB%E1%BA%A3oTr%E1%BA%A7n",
 }
 
